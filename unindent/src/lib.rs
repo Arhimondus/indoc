@@ -58,7 +58,9 @@ pub fn unindent_bytes(s: &[u8]) -> Vec<u8> {
         .filter_map(count_spaces)
         .min()
         .unwrap_or(0);
-
+    
+	print!("{}", spaces);
+	
     let mut result = Vec::with_capacity(s.len());
     for (i, line) in s.lines().enumerate() {
         if i > 1 || (i == 1 && !ignore_first_line) {
@@ -79,7 +81,7 @@ pub fn unindent_bytes(s: &[u8]) -> Vec<u8> {
 // Number of leading spaces in the line, or None if the line is entirely spaces.
 fn count_spaces(line: &[u8]) -> Option<usize> {
     for (i, ch) in line.iter().enumerate() {
-        if *ch != b' ' {
+        if *ch != b'\t' {
             return Some(i);
         }
     }
